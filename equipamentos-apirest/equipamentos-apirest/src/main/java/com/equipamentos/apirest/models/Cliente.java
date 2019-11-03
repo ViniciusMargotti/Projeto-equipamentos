@@ -1,4 +1,4 @@
-package com.produtos.apirest.models;
+package com.equipamentos.apirest.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -12,8 +12,8 @@ import javax.validation.constraints.NotNull;
 
 
 @Entity
-@Table(name="TB_PRODUTO")
-public class Produto implements Serializable{
+@Table(name="EQUIPAMENTO")
+public class Cliente implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -25,37 +25,55 @@ public class Produto implements Serializable{
 	private String nome;
 	
 	@NotNull
-	private BigDecimal quantidade;
+	private String telefone;
 	
 	@NotNull
-	private BigDecimal valor;
+	private String endereco;
 	
-	
+	@NotNull
+	private String email;
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public BigDecimal getQuantidade() {
-		return quantidade;
-	}
-	public void setQuantidade(BigDecimal quantidade) {
-		this.quantidade = quantidade;
-	}
-	public BigDecimal getValor() {
-		return valor;
-	}
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
-	}
-	
-	
 
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
+	
+	
 }

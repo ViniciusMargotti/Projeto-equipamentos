@@ -1,4 +1,4 @@
-package com.produtos.apirest.config;
+package com.equipamentos.apirest.config;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import org.springframework.context.annotation.Bean;
