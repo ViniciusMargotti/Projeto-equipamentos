@@ -96,34 +96,52 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Nome:</label>
-                                <input type="text" class="form-control" ng-model="usuario.nome">
-                            </div>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Telefone:</label>
-                                <input type="text" class="form-control" ng-model="usuario.telefone">
-                            </div>
-                            <select ng-model="usuario.estado">
-                                <option ng-repeat="estado in estados">{{estado.nome}}</option>
-                            </select>
-                            <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Endereço:</label>
-                                    <input type="text" class="form-control" ng-model="usuario.endereco">
-                            </div>
-                            <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Email:</label>
-                                    <input type="text" class="form-control" ng-model="usuario.email">
-                            </div>
+                    <form>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label class="col-form-label">Nome:</label>
+                                    <input  placeholder="Nome" required type="text" class="form-control" ng-model="cliente.nome">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Telefone:</label>
+                                    <input placeholder="Telefone" type="text" class="form-control" ng-model="cliente.telefone">
+                                </div>
 
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary">Enviar</button>
-                    </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Estado:</label>
+                                    <select  ng-change="ConsultarCidades(cliente.estado)" class="form-control"
+                                        ng-model="cliente.estado">
+                                        <option ng-repeat="estado in estados" ng-value="estado.id">{{estado.nome}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Cidade:</label>
+                                    <select  class="form-control" ng-model="cliente.cidade.id_cidade">
+                                        <option ng-repeat="cidade in cidades" ng-value="cidade.id">{{cidade.nome}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Endereço:</label>
+                                    <input placeholder="Endereço" type="text" class="form-control" ng-model="cliente.endereco">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Email:</label>
+                                    <input  placeholder="Email" type="text" class="form-control" ng-model="cliente.email">
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-primary" type="submit"
+                                ng-click="SalvarCliente(cliente)">Salvar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

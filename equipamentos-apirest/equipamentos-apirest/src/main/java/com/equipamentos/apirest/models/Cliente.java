@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -21,6 +23,14 @@ public class Cliente implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
 	@NotNull
 	private String nome;
 	
@@ -72,6 +82,10 @@ public class Cliente implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	 @ManyToOne
+	 @JoinColumn(name = "id_cidade")
+	 private Cidade cidade;
 	
 	
 	

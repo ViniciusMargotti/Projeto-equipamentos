@@ -32,7 +32,7 @@ public class ClienteResource {
 	ClienteRepository clienteRepository;
 	
 	@ApiOperation(value="Retorna uma lista de Clientes")
-	@GetMapping("/Clientes")
+	@GetMapping("/clientes")
 	public List<Cliente> listaClientes(){
 		return clienteRepository.findAll();
 	}
