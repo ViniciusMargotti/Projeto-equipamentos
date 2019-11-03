@@ -12,6 +12,8 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 
+
+
 import static springfox.documentation.builders.PathSelectors.regex;
 
 import java.util.ArrayList;
@@ -33,8 +35,8 @@ public class SwaggerConfig {
     private ApiInfo metaInfo() {
 
         ApiInfo apiInfo = new ApiInfo(
-                "Produtos API REST",
-                "API REST de cadastro de produtos.",
+                "Equipamentos API REST",
+                "API REST de cadastro de equipamentos.",
                 "1.0",
                 "Terms of Service",
                 new Contact("Michelli Brito", "https://www.youtube.com/michellibrito",
@@ -45,5 +47,7 @@ public class SwaggerConfig {
 
         return apiInfo;
     }
+    
+    
 
 }
