@@ -19,7 +19,7 @@ public class Equipamento implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long id;
+	private long id_equipamento;
 	
 	@NotNull
 	private String tipo;
@@ -31,11 +31,11 @@ public class Equipamento implements Serializable{
 	private String problema;
 
 	public long getId() {
-		return id;
+		return id_equipamento;
 	}
 
 	public void setId(long id) {
-		this.id = id;
+		this.id_equipamento = id;
 	}
 
 	public String getTipo() {

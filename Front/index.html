@@ -12,6 +12,8 @@
 
     <link rel="stylesheet" href="css/style.css">
 
+    <link rel="stylesheet" href="node_modules/angular-ui-grid/ui-grid.min.css">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -31,62 +33,104 @@
         crossorigin="anonymous"></script>
 
 
-</head>
 
 <body>
-    <div class="main" ng-controller="IndexController">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
-                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Alterna navegação">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(Página atual)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Alterna navegação">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Sistema para controle de manutenção de
+                        equipamentos <span class="sr-only">(Página atual)</span></a>
+                </li>
 
-                </ul>
-            </div>
-        </nav>
-        <div class="col-md-6">
-            <div class="card">
-                <h5 class="card-header">Clientes</h5>
-                <div class="card-body">
-                    <button type="button" class="btn btn-primary float-right" data-toggle="modal"
-                        data-target="#exampleModal">Novo</button>
-                    <div class="table-responsive">
-                        <table class="table table-striped  ">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nome</th>
-                                    <th scope="col">Telefone</th>
-                                    <th scope="col">Endereço</th>
-                                    <th scope="col">Email</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="cliente in clientes">
-                                    <th scope="row">{{cliente.id}}</th>
-                                    <td>{{cliente.nome}}</td>
-                                    <td>{{cliente.telefone}}</td>
-                                    <td>{{cliente.endereco}}</td>
-                                    <td>{{cliente.email}}</td>
-                                </tr>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid" ng-controller="IndexController">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <h5 class="card-header">Clientes <button type="button" class="btn btn-primary float-right"
+                            data-toggle="modal" data-target="#modalCliente">Novo</button></h5>
+                    <div class="card-body">
 
-                            </tbody>
-                        </table>
+                        <div ui-grid="gridOptions1" ui-grid-pagination ui-grid-exporter class="grid"></div>
                     </div>
-                    <a href="#" class="btn btn-primary float-right">Exportar PDF</a>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <h5 class="card-header">Serviços<button type="button" class="btn btn-success float-right"
+                            data-toggle="modal" data-target="#modalServico">Iniciar atendimento</button></h5>
+                    <div class="card-body">
+
+                        <div ui-grid="gridOptions2" ui-grid-pagination ui-grid-exporter class="grid"></div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+
+        <div class="modal fade" id="modalServico" tabindex="-1" role="dialog" aria-labelledby="modalServico"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Atendimento</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form>
+                        <div class="modal-body">
+                            <form>
+                                <h5>Equipamento</h5>
+                                <div class="form-group">
+                                    <label class="col-form-label">Marca:</label>
+                                    <input placeholder="Marca" required type="text" class="form-control"
+                                        ng-model="servico.marca">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Tipo:</label>
+                                    <input placeholder="Tipo" required type="text" class="form-control"
+                                        ng-model="servico.tipo">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Descrição problema:</label>
+                                    <input placeholder="Descrição do problema" required type="text" class="form-control"
+                                        ng-model="servico.problema">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Cliente:</label>
+                                    <select class="form-control" ng-model="servico.cliente">
+                                        <option ng-repeat="cliente in clientes" ng-value="estado.id">{{cliente.nome}}
+                                        </option>
+                                    </select>
+                                </div>
+
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-primary" type="submit"
+                                ng-click="SalvarCliente(cliente)">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="modalCliente" tabindex="-1" role="dialog" aria-labelledby="modalCliente"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -101,16 +145,18 @@
                             <form>
                                 <div class="form-group">
                                     <label class="col-form-label">Nome:</label>
-                                    <input  placeholder="Nome" required type="text" class="form-control" ng-model="cliente.nome">
+                                    <input placeholder="Nome" required type="text" class="form-control"
+                                        ng-model="cliente.nome">
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label">Telefone:</label>
-                                    <input placeholder="Telefone" type="text" class="form-control" ng-model="cliente.telefone">
+                                    <input placeholder="Telefone" type="text" class="form-control"
+                                        ng-model="cliente.telefone">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label">Estado:</label>
-                                    <select  ng-change="ConsultarCidades(cliente.estado)" class="form-control"
+                                    <select ng-change="ConsultarCidades(cliente.estado)" class="form-control"
                                         ng-model="cliente.estado">
                                         <option ng-repeat="estado in estados" ng-value="estado.id">{{estado.nome}}
                                         </option>
@@ -119,7 +165,7 @@
 
                                 <div class="form-group">
                                     <label class="col-form-label">Cidade:</label>
-                                    <select  class="form-control" ng-model="cliente.cidade.id_cidade">
+                                    <select class="form-control" ng-model="cliente.cidade.id_cidade">
                                         <option ng-repeat="cidade in cidades" ng-value="cidade.id">{{cidade.nome}}
                                         </option>
                                     </select>
@@ -127,11 +173,13 @@
 
                                 <div class="form-group">
                                     <label class="col-form-label">Endereço:</label>
-                                    <input placeholder="Endereço" type="text" class="form-control" ng-model="cliente.endereco">
+                                    <input placeholder="Endereço" type="text" class="form-control"
+                                        ng-model="cliente.endereco">
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label">Email:</label>
-                                    <input  placeholder="Email" type="text" class="form-control" ng-model="cliente.email">
+                                    <input placeholder="Email" type="text" class="form-control"
+                                        ng-model="cliente.email">
                                 </div>
 
                             </form>
@@ -154,8 +202,13 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
 
+    <script src="node_modules/angular-ui-grid/ui-grid.js"></script>
     <!-- Controllers -->
     <script src="js/controller.js"></script>
+
+
+
+
 </body>
 
 </html>
