@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.equipamentos.apirest.DTO.ServicoRequest;
+import com.equipamentos.apirest.models.Cliente;
+import com.equipamentos.apirest.models.Equipamento;
 import com.equipamentos.apirest.models.Servico;
+import com.equipamentos.apirest.repository.EquipamentoRepository;
 import com.equipamentos.apirest.repository.ServicoRepository;
 
 import io.swagger.annotations.Api;
@@ -32,10 +35,35 @@ public class ServicoResource {
 	@Autowired
 	ServicoRepository servicoRepository;
 	
+	@Autowired
+	ClienteResource clienteResource;
+	
+	@Autowired
+	EquipamentoRepository equipamentoRepository;
+	
 	@ApiOperation(value="Retorna uma lista de Servicos")
 	@GetMapping("/servicos")
 	public List<Servico> listaServicos(){
 		return servicoRepository.findAll();
+	}
+	
+	@ApiOperation(value="Salva um serviço")
+	@PostMapping("/servico")
+	public Servico salvaServico(@RequestBody @Valid ServicoRequest servicoRequest) {
+		
+		Equipamento equipamentoSave = new Equipamento(servicoRequest.getTipo(),
+				servicoRequest.getMarca(),
+				servicoRequest.getProblema()
+	    );
+		
+		Equipamento Equipamento = equipamentoRepository.saveAndFlush(equipamentoSave);
+		
+		Cliente cliente = clienteResource.GetClienteById(servicoRequest.getId_cliente());
+		
+		Servico servico = new Servico("A", cliente, Equipamento);
+		
+		
+		return servicoRepository.save(servico);
 	}
 	
 	

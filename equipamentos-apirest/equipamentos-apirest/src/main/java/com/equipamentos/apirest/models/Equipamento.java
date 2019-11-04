@@ -61,6 +61,17 @@ public class Equipamento implements Serializable{
 	public void setProblema(String problema) {
 		this.problema = problema;
 	}
+
+	public Equipamento(@NotNull String tipo, @NotNull String marca, @NotNull String problema) {
+		super();
+		this.tipo = tipo;
+		this.marca = marca;
+		this.problema = problema;
+	}
+	
+   public Equipamento() {
+		
+	}
 	
 	
 	

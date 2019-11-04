@@ -92,6 +92,22 @@ public class Cliente implements Serializable{
 	 
 	 @OneToMany(fetch = FetchType.LAZY)
 	 private List<Servico> servicos;
+
+	public Cliente(@NotNull String nome, @NotNull String telefone, @NotNull String endereco, @NotNull String email,
+			Cidade cidade, List<Servico> servicos) {
+		super();
+		this.nome = nome;
+		this.telefone = telefone;
+		this.endereco = endereco;
+		this.email = email;
+		this.cidade = cidade;
+		this.servicos = servicos;
+	}
+	
+    public Cliente() {
+		
+	}
+
 	
 	
 	

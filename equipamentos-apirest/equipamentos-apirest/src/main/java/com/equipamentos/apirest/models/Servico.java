@@ -34,6 +34,54 @@ public class Servico implements Serializable{
 	 @OneToOne
 	 @JoinColumn(name = "id_equipamento")
 	 private Equipamento equipamento;
+	 
+	 
+	public long getId_servico() {
+		return id_servico;
+	}
+
+	public void setId_servico(long id_servico) {
+		this.id_servico = id_servico;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Equipamento getEquipamento() {
+		return equipamento;
+	}
+
+	public void setEquipamento(Equipamento equipamento) {
+		this.equipamento = equipamento;
+	}
+
+	public Servico( @NotNull String status, Cliente cliente, Equipamento equipamento) {
+		super();
+		this.status = status;
+		this.cliente = cliente;
+		this.equipamento = equipamento;
+	}
+	
+	public Servico() {
+		
+	}
+
+
+	
+	
      
 	 
      

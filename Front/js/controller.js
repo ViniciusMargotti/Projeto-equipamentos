@@ -38,9 +38,13 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
         enablePaginationControls: true,
         enableFiltering: true,
         columnDefs: [
-          {field: 'id' , name: 'Cód serviço' },
-          {field: 'status' , name: 'Status' },
-         
+          {field: 'id_servico' , name: 'Cód serviço' },
+          {field: 'cliente.nome' , name: 'Cliente'},
+          {field: 'equipamento.tipo' , name: 'Equipamento'},
+          {field: 'equipamento.problema' , name: 'Problema'},
+          {field: 'status' , name: 'Status'},
+          { name: 'Ações', cellTemplate: '<div><button style="margin:1px;" class=" btn-sm btn-success">Finalizar</button></div>'}
+
         ],
       };
 
@@ -67,6 +71,7 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
 
     $scope.ConsultarServicos = function () {
         $http.get("http://localhost:8090/api/servicos").success(function (data) {
+            debugger;
             $scope.gridOptions2.data = data;
         });
 
@@ -74,8 +79,15 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
 
     $scope.SalvarCliente = function (cliente) {
         $http.post("http://localhost:8090/api/cliente", cliente).success(function (data) {
-            $('#exampleModal').modal('hide');
+            $('#modalCliente').modal('hide');
             $scope.ConsultarClientes();
+        });
+    }
+
+    $scope.SalvarServico = function (servico) {
+        $http.post("http://localhost:8090/api/servico", servico).success(function (data) {
+            $('#modalServico').modal('hide');
+            $scope.ConsultarServicos();
         });
     }
 
