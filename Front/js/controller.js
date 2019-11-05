@@ -5,7 +5,7 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
     $scope.clientes = [];
     $scope.servicos = [];
     $scope.cidades = [];
-    $scope.cliente = {};
+    $scope.clienteSave={};
 
     $scope.gridOptions1 = {
         data: [],
@@ -22,7 +22,8 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
           {field: 'nome' , name: 'Nome' },
           {field: 'telefone' , name: 'Telefone' },
           {field: 'email' , name: 'Email' },
-          {field: 'endereco' , name: 'Endereço' }
+          {field: 'endereco' , name: 'Endereço' },
+          { name: 'Ações', cellTemplate: '<button title="Editar Usuario" style="margin:1px;" ng-click="grid.appScope.ConsultarCliente(row.entity.id)" class=" btn btn-sm btn-info">  <i class="fa fa-edit"></i> </button>'}
         ],
       };
 
@@ -42,10 +43,10 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
           {field: 'cliente.nome' , name: 'Cliente'},
           {field: 'equipamento.tipo' , name: 'Equipamento'},
           {field: 'equipamento.problema' , name: 'Problema'},
-          {field: 'status' , name: 'Status'},
-          { name: 'Ações', cellTemplate: '<div><button style="margin:1px;" class=" btn-sm btn-success">Finalizar</button></div>'}
+          {field: 'status', cellTemplate: '<span>{{row.entity.status==="F" ? "Finalizado" : "Aberto"}}</span>'},
+          { name: 'Ações', cellTemplate: '<button title="Finalizar serviço" style="margin:1px;" ng-show="row.entity.status===\'A\'" ng-click="grid.appScope.FinalizarServico(row.entity.id_servico)" class=" btn btn-sm btn-success">  <i class="fa fa-check"></i>  </button>'}
 
-        ],
+        ]
       };
 
 
@@ -69,15 +70,26 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
 
     }
 
+    $scope.ConsultarCliente = function (id) {
+        $http.get("http://localhost:8090/api/cliente/"+id).success(function (data) {
+            debugger;
+            $scope.clienteSave = data;
+            $scope.clienteSave.estado = data.cidade.estado.id;
+            $scope.clienteSave.cidade.id_cidade = data.cidade.id;
+            $scope.ConsultarCidades(data.cidade.estado.id);
+            $('#modalCliente').modal('show');
+        });
+    }
+
     $scope.ConsultarServicos = function () {
         $http.get("http://localhost:8090/api/servicos").success(function (data) {
-            debugger;
             $scope.gridOptions2.data = data;
         });
 
     }
 
     $scope.SalvarCliente = function (cliente) {
+        debugger;
         $http.post("http://localhost:8090/api/cliente", cliente).success(function (data) {
             $('#modalCliente').modal('hide');
             $scope.ConsultarClientes();
@@ -85,17 +97,21 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
     }
 
     $scope.SalvarServico = function (servico) {
+        debugger;
         $http.post("http://localhost:8090/api/servico", servico).success(function (data) {
             $('#modalServico').modal('hide');
             $scope.ConsultarServicos();
         });
     }
 
-    $scope.limparCliente = function () {
-        $scope.cliente = [];
+    $scope.FinalizarServico = function (servico) {
+        $http.put("http://localhost:8090/api/finalizaServico", servico).success(function (data) {
+            $scope.ConsultarServicos();
+        });
     }
 
     $scope.ConsultarClientes();
     $scope.ConsultarServicos();
+    
 
 });

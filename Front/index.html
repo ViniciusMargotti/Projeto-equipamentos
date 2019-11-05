@@ -32,6 +32,8 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
+
 
 
 <body>
@@ -51,10 +53,12 @@
         </div>
     </nav>
     <div class="container-fluid" ng-controller="IndexController">
+
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
-                    <h5 class="card-header">Serviços<button type="button" class="btn btn-success float-right"
+
+                    <h5 class="card-header">Serviços <button type="button" class="btn btn-success float-right"
                             data-toggle="modal" data-target="#modalServico">Iniciar atendimento</button></h5>
                     <div class="card-body">
 
@@ -64,7 +68,7 @@
             </div>
             <div class="col-md-6">
                 <div class="card">
-                    <h5 class="card-header">Clientes <button type="button" class="btn btn-primary float-right"
+                    <h5 class="card-header">Clientes <button type="button" ng-click="cliente=[]" class="btn btn-primary float-right"
                             data-toggle="modal" data-target="#modalCliente">Novo</button></h5>
                     <div class="card-body">
 
@@ -135,61 +139,60 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Novo Usuário</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Novo Cliente</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form>
+                   
                         <div class="modal-body">
-                            <form>
+                                <div class="form-group">
+                                    <label class="col-form-label">Código:</label>
+                                    <input placeholder="Auto" ng-disabled="true" required type="text" class="form-control"
+                                        ng-model="clienteSave.id">
+                                </div>
                                 <div class="form-group">
                                     <label class="col-form-label">Nome:</label>
                                     <input placeholder="Nome" required type="text" class="form-control"
-                                        ng-model="cliente.nome">
+                                        ng-model="clienteSave.nome">
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label">Telefone:</label>
                                     <input placeholder="Telefone" type="text" class="form-control"
-                                        ng-model="cliente.telefone">
+                                        ng-model="clienteSave.telefone">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label">Estado:</label>
-                                    <select ng-change="ConsultarCidades(cliente.estado)" class="form-control"
-                                        ng-model="cliente.estado">
-                                        <option ng-repeat="estado in estados" ng-value="estado.id">{{estado.nome}}
-                                        </option>
+                                    <select ng-change="ConsultarCidades(clienteSave.estado)" class="form-control"
+                                        ng-model="clienteSave.estado"
+                                        ng-options="estado.id as estado.nome for estado in estados">
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label">Cidade:</label>
-                                    <select class="form-control" ng-model="cliente.cidade.id_cidade">
-                                        <option ng-repeat="cidade in cidades" ng-value="cidade.id">{{cidade.nome}}
-                                        </option>
+                                    <select class="form-control" ng-model="clienteSave.cidade.id_cidade"
+                                        ng-options="cidade.id as cidade.nome for cidade in cidades">
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label">Endereço:</label>
                                     <input placeholder="Endereço" type="text" class="form-control"
-                                        ng-model="cliente.endereco">
+                                        ng-model="clienteSave.endereco">
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label">Email:</label>
                                     <input placeholder="Email" type="text" class="form-control"
-                                        ng-model="cliente.email">
+                                        ng-model="clienteSave.email">
                                 </div>
-
-                            </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                             <button type="button" class="btn btn-primary" type="submit"
-                                ng-click="SalvarCliente(cliente)">Salvar</button>
+                                ng-click="SalvarCliente(clienteSave)">Salvar</button>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>

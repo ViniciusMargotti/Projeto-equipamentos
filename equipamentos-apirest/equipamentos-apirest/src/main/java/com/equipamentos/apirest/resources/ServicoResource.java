@@ -66,6 +66,22 @@ public class ServicoResource {
 		return servicoRepository.save(servico);
 	}
 	
+	@ApiOperation(value="Atualiza um servico")
+	@PutMapping("/servico")
+	public Servico atualizaServico(@RequestBody @Valid Servico servico) {
+		return servicoRepository.save(servico);
+	}
+	
+	@ApiOperation(value="Atualiza um servico")
+	@PutMapping("/finalizaServico")
+	public Servico finalizaServico(@RequestBody @Valid long id_servico) {
+		
+		Servico servicoUpdate = servicoRepository.findById(id_servico);
+		String status = servicoUpdate.getStatus().equals("A")?"F":"A";
+		servicoUpdate.setStatus(status);	
+		return servicoRepository.save(servicoUpdate);
+	}
+	
 	
 
 }
