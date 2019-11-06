@@ -2,6 +2,7 @@ package com.equipamentos.apirest.DTO;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -26,6 +27,8 @@ public class ServicoRequest implements Serializable{
 	private String problema;
 	
 	private long id_cliente;
+	
+	private String data_cadastro;
 
 	public String getTipo() {
 		return tipo;
@@ -37,6 +40,15 @@ public class ServicoRequest implements Serializable{
 
 	public String getMarca() {
 		return marca;
+	}
+
+	
+	public String getData_cadastro() {
+		return data_cadastro;
+	}
+
+	public void setData_cadastro(String data_cadastro) {
+		this.data_cadastro = data_cadastro;
 	}
 
 	public void setMarca(String marca) {

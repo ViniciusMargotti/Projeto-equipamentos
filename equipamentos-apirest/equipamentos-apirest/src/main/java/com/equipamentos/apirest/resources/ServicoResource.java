@@ -1,6 +1,7 @@
 package com.equipamentos.apirest.resources;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -56,12 +57,13 @@ public class ServicoResource {
 				servicoRequest.getProblema()
 	    );
 		
-		Equipamento Equipamento = equipamentoRepository.saveAndFlush(equipamentoSave);
+		Equipamento equipamento = equipamentoRepository.saveAndFlush(equipamentoSave);
 		
 		Cliente cliente = clienteResource.GetClienteById(servicoRequest.getId_cliente());
 		
-		Servico servico = new Servico("A", cliente, Equipamento);
+		String data_cadastro = servicoRequest.getData_cadastro();
 		
+		Servico servico = new Servico("A",data_cadastro, cliente, equipamento);
 		
 		return servicoRepository.save(servico);
 	}
@@ -79,6 +81,7 @@ public class ServicoResource {
 		Servico servicoUpdate = servicoRepository.findById(id_servico);
 		String status = servicoUpdate.getStatus().equals("A")?"F":"A";
 		servicoUpdate.setStatus(status);	
+		servicoUpdate.setData_termino(new Date().toString());
 		return servicoRepository.save(servicoUpdate);
 	}
 	
