@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ui.grid', 'ui.grid.pagination', 'ui.grid.exporter']);
+var myApp = angular.module('myApp', ['ui.grid', 'ui.grid.pagination', 'ui.grid.exporter', 'ui.grid.resizeColumns', 'ui.grid.moveColumns']);
 
 myApp.controller('IndexController', function IndexController($scope, $http) {
 
@@ -8,6 +8,7 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
     $scope.servicos = [];
     $scope.cidades = [];
     $scope.clienteSave = {};
+    $scope.servicoSave = {};
 
     $scope.gridOptions1 = {
         data: [],
@@ -47,7 +48,7 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
             { field: 'data_cadastro', name: 'Data cadastro' },
             { field: 'data_termino', name: 'Data finalização' },
             { field: 'equipamento.tipo', name: 'Equipamento' },
-            { field: 'equipamento.problema', name: 'Problema' },
+            { field: 'equipamento.problema', name: 'Problema', cellTooltip: true},
             { field: 'status', cellTemplate: '<span>{{row.entity.status==="F" ? "Finalizado" : "Aberto"}}</span>' },
             { name: 'Ações', cellTemplate: '<button title="Finalizar serviço" style="margin:1px;" ng-show="row.entity.status===\'A\'" ng-click="grid.appScope.FinalizarServico(row.entity.id_servico)" class=" btn btn-sm btn-success">  <i class="fa fa-check"></i>  </button>' }
 
@@ -70,6 +71,7 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
     $scope.ConsultarClientes = function () {
         $http.get("http://localhost:8090/api/clientes").success(function (data) {
             $scope.gridOptions1.data = data;
+            $scope.clientes = data;
             data.forEach(element => {
                 $scope.clientesReport.push([element.id, element.nome, element.telefone,
                 element.email, element.endereco, element.cidade.nome]);
@@ -85,6 +87,18 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
             $scope.clienteSave.cidade.id_cidade = data.cidade.id;
             $scope.ConsultarCidades(data.cidade.estado.id);
             $('#modalCliente').modal('show');
+        });
+    }
+
+    $scope.ConsultarServico = function (id) {
+        $http.get("http://localhost:8090/api/servico/"+id).success(function (data) {
+            $scope.servicoSave.id= data.id_servico;
+            $scope.servicoSave.marca = data.equipamento.marca;
+            $scope.servicoSave.tipo = data.equipamento.tipo;
+            $scope.servicoSave.problema = data.equipamento.problema;
+            $scope.servicoSave.id_cliente = data.cliente.id;
+            $scope.ConsultarClientes();
+            $('#modalServico').modal('show');
         });
     }
 
@@ -113,7 +127,7 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
             doc.text("Manutenção de equipamentos - Relatório de serviços", 20, 10);
         };
         
-        var doc = new jsPDF();
+        var doc = new jsPDF("p", "pt", "a3");
         doc.autoTable({
             head: [['Código', 'Cliente', 'Data cadastro', 'Data finalização', 'Equipamento', 'Problema', 'Status']],
             body: $scope.servicosReport,
@@ -145,15 +159,18 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
     }
 
     $scope.SalvarServico = function (servico) {
-        servico.data_cadastro = new Date().toDateString();
+        servico.data_cadastro = new Date().toLocaleDateString();
         $http.post("http://localhost:8090/api/servico", servico).success(function (data) {
             $('#modalServico').modal('hide');
+            $scope.servicoEdit = true;
             $scope.ConsultarServicos();
         });
     }
 
+
     $scope.FinalizarServico = function (servico) {
-        $http.put("http://localhost:8090/api/finalizaServico", servico).success(function (data) {
+        servico.data_termino = new Date().toLocaleDateString();
+        $http.put("http://localhost:8090/api/servico", servico).success(function (data) {
             $scope.ConsultarServicos();
         });
     }

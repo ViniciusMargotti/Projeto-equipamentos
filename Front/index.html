@@ -63,10 +63,10 @@
                 <div class="card">
            
            <h5 class="card-header">Serviços <button type="button" class="btn btn-success float-right"
-                        style="margin-left: 5px;"    data-toggle="modal" data-target="#modalServico">Iniciar atendimento</button><button  class="btn btn-danger float-right" ng-click="GerarRelatorioServicos()">Exportar PDF</button></h5>
+                        style="margin-left: 5px;"    data-toggle="modal" ng-click="servicoSave={}" data-target="#modalServico">Iniciar atendimento</button><button  class="btn btn-danger float-right" ng-click="GerarRelatorioServicos()">Exportar PDF</button></h5>
                     <div class="card-body">
 
-                        <div ui-grid="gridOptions2" ui-grid-pagination ui-grid-exporter class="grid"></div>
+                        <div ui-grid="gridOptions2" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns ui-grid-move-columns class="grid"></div>
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                             data-toggle="modal" data-target="#modalCliente">Novo</button> <button  class="btn btn-danger float-right" ng-click="GerarRelatorioClientes()">Exportar PDF</button></h5>
                     <div class="card-body">
 
-                        <div ui-grid="gridOptions1" ui-grid-pagination ui-grid-exporter class="grid"></div>
+                        <div ui-grid="gridOptions1" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns ui-grid-move-columns class="grid"></div>
                     </div>
                 </div>
             </div>
@@ -96,31 +96,35 @@
                     </div>
                     <form>
                         <div class="modal-body">
-                            <form>
+                            <form >
                                 <h5>Equipamento</h5>
                                 <div class="form-group">
+                                    <label class="col-form-label">Código:</label>
+                                    <input placeholder="Auto" ng-disabled="true" required type="text" class="form-control"
+                                        ng-model="servicoSave.id">
+                                </div>
+                                <div class="form-group">
                                     <label class="col-form-label">Marca:</label>
-                                    <input placeholder="Marca" required type="text" class="form-control"
-                                        ng-model="servico.marca">
+                                    <input ng-disabled="servicoEdit==true" placeholder="Marca" required type="text" class="form-control"
+                                        ng-model="servicoSave.marca">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label">Tipo:</label>
                                     <input placeholder="Tipo" required type="text" class="form-control"
-                                        ng-model="servico.tipo">
+                                        ng-model="servicoSave.tipo">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label">Descrição problema:</label>
                                     <input placeholder="Descrição do problema" required type="text" class="form-control"
-                                        ng-model="servico.problema">
+                                        ng-model="servicoSave.problema">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label">Cliente:</label>
-                                    <select class="form-control" ng-model="servico.id_cliente">
-                                        <option ng-repeat="cliente in clientes" ng-value="cliente.id">{{cliente.nome}}
-                                        </option>
+                                    <select ng-options="cliente.id as cliente.nome for cliente in clientes" class="form-control" ng-model="servicoSave.id_cliente" >
+                                    
                                     </select>
                                 </div>
 
@@ -130,7 +134,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                             <button type="button" class="btn btn-primary" type="submit"
-                                ng-click="SalvarServico(servico)">Salvar</button>
+                                ng-click="SalvarServico(servicoSave)">Salvar</button>
                         </div>
                     </form>
                 </div>
@@ -194,7 +198,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="button" class="btn btn-primary" type="submit"
+                            <button  type="button" class="btn btn-primary" type="submit"
                                 ng-click="SalvarCliente(clienteSave)">Salvar</button>
                         </div>
                 </div>

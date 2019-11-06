@@ -1,5 +1,7 @@
 package com.equipamentos.apirest.resources;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -48,6 +50,12 @@ public class ServicoResource {
 		return servicoRepository.findAll();
 	}
 	
+	@ApiOperation(value="Retorna um servico unico")
+	@GetMapping("/servico/{id}")
+	public Servico GetServicoById(@PathVariable(value="id") long id){
+		return servicoRepository.findById(id);
+	}
+	
 	@ApiOperation(value="Salva um serviço")
 	@PostMapping("/servico")
 	public Servico salvaServico(@RequestBody @Valid ServicoRequest servicoRequest) {
@@ -68,20 +76,17 @@ public class ServicoResource {
 		return servicoRepository.save(servico);
 	}
 	
-	@ApiOperation(value="Atualiza um servico")
-	@PutMapping("/servico")
-	public Servico atualizaServico(@RequestBody @Valid Servico servico) {
-		return servicoRepository.save(servico);
-	}
 	
-	@ApiOperation(value="Atualiza um servico")
+	@ApiOperation(value="Finaliza um servico")
 	@PutMapping("/finalizaServico")
 	public Servico finalizaServico(@RequestBody @Valid long id_servico) {
 		
 		Servico servicoUpdate = servicoRepository.findById(id_servico);
 		String status = servicoUpdate.getStatus().equals("A")?"F":"A";
 		servicoUpdate.setStatus(status);	
-		servicoUpdate.setData_termino(new Date().toString());
+		DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String data_termino = sourceFormat.format(new Date());
+		servicoUpdate.setData_termino(data_termino);
 		return servicoRepository.save(servicoUpdate);
 	}
 	
