@@ -50,7 +50,10 @@
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Sistema para controle de manutenção de
-                        equipamentos <span class="sr-only">(Página atual)</span></a>
+                        equipamentos <span class="sr-only">(Página atual)</span></a> 
+                </li>
+                <li class="nav-item ">
+                        <a class="nav-link " href=""><i class="fa fa-user text-info "></i> </a>
                 </li>
 
             </ul>
@@ -94,9 +97,9 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form>
+                   
                         <div class="modal-body">
-                            <form >
+                            <form ng-submit="SalvarServico(servicoSave)" >
                                 <h5>Equipamento</h5>
                                 <div class="form-group">
                                     <label class="col-form-label">Código:</label>
@@ -123,20 +126,19 @@
 
                                 <div class="form-group">
                                     <label class="col-form-label">Cliente:</label>
-                                    <select ng-options="cliente.id as cliente.nome for cliente in clientes" class="form-control" ng-model="servicoSave.id_cliente" >
-                                    
+                                    <select required ng-options="cliente.id as cliente.nome for cliente in clientes" class="form-control" ng-model="servicoSave.id_cliente" >
+                                            <option value="">-- Selecione um cliente --</option>
                                     </select>
                                 </div>
-
-
-                            </form>
+                          
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="button" class="btn btn-primary" type="submit"
-                                ng-click="SalvarServico(servicoSave)">Salvar</button>
+                            <button type="submit" class="btn btn-primary" type="submit"
+                             > Salvar </button>
                         </div>
                     </form>
+                  
                 </div>
             </div>
         </div>
@@ -154,53 +156,58 @@
                     </div>
                    
                         <div class="modal-body">
+                            <form ng-submit="SalvarCliente(clienteSave)"  >
                                 <div class="form-group">
                                     <label class="col-form-label">Código:</label>
-                                    <input placeholder="Auto" ng-disabled="true" required type="text" class="form-control"
+                                    <input placeholder="Auto" ng-disabled="true"  type="text" class="form-control"
                                         ng-model="clienteSave.id">
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label">Nome:</label>
-                                    <input placeholder="Nome" required type="text" class="form-control"
+                                    <input placeholder="Nome" required  type="text" class="form-control"
                                         ng-model="clienteSave.nome">
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label">Telefone:</label>
-                                    <input placeholder="Telefone" type="text" class="form-control"
+                                    <input required placeholder="Telefone" type="text" class="form-control"
                                         ng-model="clienteSave.telefone">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label">Estado:</label>
-                                    <select ng-change="ConsultarCidades(clienteSave.estado)" class="form-control"
+                                    <select required ng-change="ConsultarCidades(clienteSave.estado)" class="form-control"
                                         ng-model="clienteSave.estado"
                                         ng-options="estado.id as estado.nome for estado in estados">
+                                        <option value="">-- Selecione um estado --</option>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label">Cidade:</label>
-                                    <select class="form-control" ng-model="clienteSave.cidade.id_cidade"
+                                    <select required  class="form-control" ng-model="clienteSave.cidade.id_cidade"
                                         ng-options="cidade.id as cidade.nome for cidade in cidades">
+                                        <option value="">-- Selecione uma cidade --</option>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-form-label">Endereço:</label>
-                                    <input placeholder="Endereço" type="text" class="form-control"
+                                    <input required placeholder="Endereço" type="text" class="form-control"
                                         ng-model="clienteSave.endereco">
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label">Email:</label>
-                                    <input placeholder="Email" type="text" class="form-control"
+                                    <input required placeholder="Email" type="text" class="form-control"
                                         ng-model="clienteSave.email">
                                 </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button  type="button" class="btn btn-primary" type="submit"
-                                ng-click="SalvarCliente(clienteSave)">Salvar</button>
+                            <button type="submit" class="btn btn-primary" type="submit"
+                               >Salvar</button>
                         </div>
+                    </form>
+
                 </div>
             </div>
         </div>

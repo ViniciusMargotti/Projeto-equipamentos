@@ -27,7 +27,7 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
             { field: 'email', name: 'Email' },
             { field: 'endereco', name: 'Endereço' },
             { field: 'cidade.nome', name: 'Cidade' },
-            { name: 'Ações', cellTemplate: '<button title="Editar Usuario" style="margin:1px;" ng-click="grid.appScope.ConsultarCliente(row.entity.id)" class=" btn btn-sm btn-info">  <i class="fa fa-edit"></i> </button>' }
+            { name: 'Ações', cellTemplate: '<button title="Editar Usuario" style="margin:1px;" ng-click="grid.appScope.ConsultarCliente(row.entity.id)" class=" btn btn-sm btn-info">  <i class="fa fa-edit">Editar</i> </button>' }
         ],
     };
 
@@ -124,7 +124,7 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
         var header = function (data) {
             doc.setFontSize(12);
             doc.setTextColor(40);
-            doc.text("Manutenção de equipamentos - Relatório de serviços", 20, 10);
+            doc.text("Manutenção de equipamentos - Relatório de serviços", 20, 25);
         };
         
         var doc = new jsPDF("p", "pt", "a3");
@@ -159,6 +159,7 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
     }
 
     $scope.SalvarServico = function (servico) {
+        debugger;
         servico.data_cadastro = new Date().toLocaleDateString();
         $http.post("http://localhost:8090/api/servico", servico).success(function (data) {
             $('#modalServico').modal('hide');
@@ -170,7 +171,7 @@ myApp.controller('IndexController', function IndexController($scope, $http) {
 
     $scope.FinalizarServico = function (servico) {
         servico.data_termino = new Date().toLocaleDateString();
-        $http.put("http://localhost:8090/api/servico", servico).success(function (data) {
+        $http.put("http://localhost:8090/api/finalizaServico", servico).success(function (data) {
             $scope.ConsultarServicos();
         });
     }
