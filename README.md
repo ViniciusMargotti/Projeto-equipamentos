@@ -1,12 +1,12 @@
 # ProjetoBetha
  Projeto técnico Betha Sistemas
  
-# Para começar, você pode simplesmente clonar o repositório Projeto Betha instalar as dependências:
+# Para começar, você pode simplesmente clonar o repositório ProjetoBetha instalar as dependências:
 
 # Pré-requisitos
-Você precisa do git para clonar o repositório ProjetoBetha. Você pode obter o git daqui.
 
-para inicializar e testar a semente angular. Você deve ter o Node.js e seu gerenciador de pacotes (npm) instalado. Você pode obtê-los daqui.
+para inicializar e testar a semente angular.
+Você deve ter o Node.js e seu gerenciador de pacotes (npm) instalado.
 
 # Clone
 
