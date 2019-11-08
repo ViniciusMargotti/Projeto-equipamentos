@@ -12,8 +12,8 @@ Você deve ter o Node.js e seu gerenciador de pacotes (npm) instalado.
 
 git clone https://github.com/ViniciusMargotti/ProjetoBetha.git
 
-# cd Front
-para rodar Front-end em angularjs
+# Para iniciar Front-end em angularjs
+cd front
 
 
 # Instalar dependências
@@ -35,7 +35,7 @@ para inicia-la basta apenas rodar o projeto Spring no caminho:
 
 equipamentos-apirest/equipamentos-apirest
 
-# IDE Utilizada = Eclipse
+# IDE Utilizada - Eclipse
 # Banco de dados:
 Postgress, as tabelas são geradas pelas entidades, é apenas necessário criar o banco e especifica-lo no arquivo
 aplication.properties
