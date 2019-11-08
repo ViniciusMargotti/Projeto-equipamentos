@@ -31,65 +31,67 @@ import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping(value="/api")
-@Api(value="API REST Servicos")
+@RequestMapping(value = "/api")
+@Api(value = "API REST Servicos")
 public class ServicoResource {
-	
+
 	@Autowired
 	ServicoRepository servicoRepository;
-	
+
 	@Autowired
 	ClienteResource clienteResource;
-	
+
 	@Autowired
 	EquipamentoRepository equipamentoRepository;
+
+	@ApiOperation(value = "Retorna uma lista de Servicos")
+	@GetMapping("/servicos/{status}")
+	public List<Servico> listaServicos(@PathVariable(value="status") String status) {
+		
+		if(!status.equals("T")) {
+			List<Servico> servicos = servicoRepository.getServicosByStatus(status);
+			return servicos;
+		}else{
+			return servicoRepository.findAll();
+		}
 	
-	@ApiOperation(value="Retorna uma lista de Servicos")
-	@GetMapping("/servicos")
-	public List<Servico> listaServicos(){
-		return servicoRepository.findAll();
 	}
-	
-	@ApiOperation(value="Retorna um servico unico")
+
+	@ApiOperation(value = "Retorna um servico unico")
 	@GetMapping("/servico/{id}")
-	public Servico GetServicoById(@PathVariable(value="id") long id){
+	public Servico GetServicoById(@PathVariable(value = "id") long id) {
 		return servicoRepository.findById(id);
 	}
-	
-	@ApiOperation(value="Salva um serviço")
+
+	@ApiOperation(value = "Salva um serviço")
 	@PostMapping("/servico")
 	public Servico salvaServico(@RequestBody @Valid ServicoRequest servicoRequest) {
-		
-		Equipamento equipamentoSave = new Equipamento(servicoRequest.getTipo(),
-				servicoRequest.getMarca(),
-				servicoRequest.getProblema()
-	    );
-		
+
+		Equipamento equipamentoSave = new Equipamento(servicoRequest.getTipo(), servicoRequest.getMarca(),
+				servicoRequest.getProblema());
+
 		Equipamento equipamento = equipamentoRepository.saveAndFlush(equipamentoSave);
-		
+
 		Cliente cliente = clienteResource.GetClienteById(servicoRequest.getId_cliente());
-		
+
 		String data_cadastro = servicoRequest.getData_cadastro();
-		
-		Servico servico = new Servico("A",data_cadastro, cliente, equipamento);
-		
+
+		Servico servico = new Servico("A", data_cadastro, cliente, equipamento);
+
 		return servicoRepository.save(servico);
 	}
-	
-	
-	@ApiOperation(value="Finaliza um servico")
+
+	@ApiOperation(value = "Finaliza um servico")
 	@PutMapping("/finalizaServico")
 	public Servico finalizaServico(@RequestBody @Valid long id_servico) {
-		
+
 		Servico servicoUpdate = servicoRepository.findById(id_servico);
-		String status = servicoUpdate.getStatus().equals("A")?"F":"A";
-		servicoUpdate.setStatus(status);	
+		String status = servicoUpdate.getStatus().equals("A") ? "F" : "A";
+		servicoUpdate.setStatus(status);
 		DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
 		String data_termino = sourceFormat.format(new Date());
 		servicoUpdate.setData_termino(data_termino);
 		return servicoRepository.save(servicoUpdate);
 	}
-	
-	
 
 }

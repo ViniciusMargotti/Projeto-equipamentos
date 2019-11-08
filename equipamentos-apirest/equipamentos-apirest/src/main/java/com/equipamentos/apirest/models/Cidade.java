@@ -73,6 +73,16 @@ public class Cidade implements Serializable{
      
      @OneToMany(fetch = FetchType.LAZY)
 	 private List<Cliente> clientes;
+
+	public Cidade(@NotNull String nome, Estado estado) {
+		super();
+		this.nome = nome;
+		this.estado = estado;
+	}
+	
+	public Cidade() {
+		
+	}
 	
 	
 

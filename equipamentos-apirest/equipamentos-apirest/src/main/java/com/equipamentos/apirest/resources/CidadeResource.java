@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.equipamentos.apirest.models.Cidade;
 import com.equipamentos.apirest.models.Cliente;
+import com.equipamentos.apirest.models.Estado;
 import com.equipamentos.apirest.repository.CidadeRepository;
 
 import io.swagger.annotations.Api;
@@ -44,6 +45,14 @@ public class CidadeResource {
 	public Collection<Cidade> GetCidadeByEstado(@PathVariable(value="id") long id){
 		return cidadeRepository.getByEstado(id);
 	}
+	
+	
+	@ApiOperation(value="Salva uma cidade")
+	@PostMapping("/cidade")
+	public Cidade salvaCidade(@RequestBody @Valid Cidade cidade) {
+		return cidadeRepository.save(cidade);
+	}
+	
 	
 
 }

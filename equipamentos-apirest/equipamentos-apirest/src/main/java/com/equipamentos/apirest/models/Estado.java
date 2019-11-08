@@ -50,7 +50,17 @@ public class Estado implements Serializable{
 	
 	 @OneToMany(fetch = FetchType.LAZY)
 	 private List<Cidade> cidades;
+
+	public Estado(@NotNull String nome) {
+		super();
+		this.nome = nome;
+	}
 	
+	public Estado() {
+		
+	}
+	
+	 
 	 
 	
 	

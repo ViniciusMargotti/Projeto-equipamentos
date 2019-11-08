@@ -75,8 +75,11 @@
     min-height: 100%;
     height: auto;
   }
+
   
   body  {
+    background: url('../images/time.jpg') no-repeat;
+    background-size:130% ;
     font-family: Merriweather, serif;
     font-size: 1rem;
     line-height: 160%;
@@ -146,6 +149,15 @@
   .header-filtered {
     color: blue;
   }
+
+
+  @media (max-width: 800px) 
+{
+ body{
+  background: #343a40!important;
+  background-size:200% ;
+ }
+}
  
   
 
