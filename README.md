@@ -1,7 +1,7 @@
 # ProjetoBetha
  Projeto técnico Betha Sistemas
  
-# Para começar, você pode simplesmente clonar o repositório angular-seed e instalar as dependências:
+# Para começar, você pode simplesmente clonar o repositório Projeto Betha instalar as dependências:
 
 # Pré-requisitos
 Você precisa do git para clonar o repositório ProjetoBetha. Você pode obter o git daqui.
