@@ -35,14 +35,9 @@ para inicia-la basta apenas rodar o projeto Spring no caminho:
 
 equipamentos-apirest/equipamentos-apirest
 
-IDE Utilizada = Eclipse
-Banco de dados: Postgress, as tabelas são geradas pelas entidades, é apenas necessário criar o banco e especifica-lo no arquivo
-aplication.properties conforme exemplo a seguir:
+# IDE Utilizada = Eclipse
+# Banco de dados:
+Postgress, as tabelas são geradas pelas entidades, é apenas necessário criar o banco e especifica-lo no arquivo
+aplication.properties
 
-spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
-#Banco local - Vinícius Margotti
-spring.datasource.url= jdbc:postgresql://localhost:5432/equipamentos
-spring.datasource.username=postgres
-spring.datasource.password=root
-spring.jpa.hibernate.ddl-auto=update
-server.port = 8090
+
