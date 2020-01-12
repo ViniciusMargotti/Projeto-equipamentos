@@ -1,4 +1,4 @@
-# Os Melhores Atletas do Mundo - Angular App
+# Angular App
 
 Desenvolvimento de uma pequena app em AngularJs (v. 1.6) com intuito de rever alguns tópicos sobre o assunto.
 
